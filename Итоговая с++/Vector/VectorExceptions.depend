@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1432825298 source:c:\users\alex\desktop\2сем\vector\main.cpp
+	"Array.h"
+	<iostream>
+
+1432873874 c:\users\alex\desktop\2сем\vector\array.h
+	<iostream>
+

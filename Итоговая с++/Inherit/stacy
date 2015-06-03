@@ -1,0 +1,62 @@
+#include <iostream>
+using namespace std;
+
+class A {
+        public:
+                void foo() {
+                        cout << "I'm A!" << endl;
+                }
+};
+
+class B: public A {
+        public:
+                void foo() {
+                        cout << "I'm B!" << endl;
+                }
+
+};
+
+class C: public B {
+        public:
+                void foo() {
+                        cout << "I'm C!" << endl;
+                }
+
+};
+
+template <typename T, typename T2>
+
+struct List {
+        typedef T Head;   // List::Head, List::Tail
+                typedef T2 Tail;  // List< A, List <B, C> >
+};
+
+struct ListEnd {};
+
+
+
+//typedef List <A, List  <B, List <C, ListEnd> > > la;
+
+typedef List <A, List< B , ListEnd>> la;
+
+template <typename T>
+struct Inherit : T::Head, Inherit <typename T::Tail> {
+        typedef typename T::Head Head1;
+        typedef Inherit<typename T::Tail> Inherit1;
+        void foo() {
+                ((Head1*)this)->foo();
+                ((Inherit1*)this)->foo();
+
+        }
+};
+
+template <> struct Inherit<ListEnd> {
+        void foo();
+};
+
+int main() {
+
+        Inherit <List<A,List<B, ListEnd>>> inh;
+        inh.foo();
+        return 0;
+}
